@@ -1,0 +1,13 @@
+## C++ Project
+
+# Media files
+*.xcf
+*.kra
+*.mscz
+*.*~
+
+# CMake Build Directory
+build/
+
+# VS Code
+.vscode/

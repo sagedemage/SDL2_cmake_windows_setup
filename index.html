@@ -138,45 +138,59 @@ C:\vclib\SDL2_image-2.8.2\lib\x64
     <p><strong>Note</strong>: to add multiple paths add a semicolon after each path</p>
     <h2 id="3-configure-the-project-with-cmake"><a class="anchor" aria-hidden="true" tabindex="-1" href="#3-configure-the-project-with-cmake"><span class="octicon octicon-link"></span></a>3. Configure the Project with CMake</h2>
     <p>Copy this configuration to the <code>CMakeLists.txt</code> file. The comments explain what portions of the configuration code do what for CMake.</p>
-    <pre><code class="code-highlight"><span class="code-line line-number" line="1">cmake_minimum_required(VERSION 3.24)
+    <pre><code class="code-highlight"><span class="code-line line-number" line="1">cmake_minimum_required(VERSION 3.30)
 </span><span class="code-line line-number" line="2"># Set the project Name
 </span><span class="code-line line-number" line="3">project(SDLSetup)
-</span><span class="code-line line-number" line="4"># Set the C++ Standard to compile against
-</span><span class="code-line line-number" line="5">set(CMAKE_CXX_STANDARD 11)
-</span><span class="code-line line-number" line="6">
-</span><span class="code-line line-number" line="7"># Set Directories for SDL2
-</span><span class="code-line line-number" line="8">set(SDL2_DIR "C:\\vclib\\SDL2-2.30.5\\cmake")
-</span><span class="code-line line-number" line="9">set(SDL2_INCLUDE_DIRS "C:\\vclib\\SDL2-2.30.5\\include")
-</span><span class="code-line line-number" line="10">set(SDL2_LIB_DIR "C:\\vclib\\SDL2-2.30.5\\lib\\x64")
-</span><span class="code-line line-number" line="11">
-</span><span class="code-line line-number" line="12"># Set Directories for SDL2_image
-</span><span class="code-line line-number" line="13">set(SDL2_image_DIR "C:\\vclib\\SDL2_image-2.8.2\\cmake")
-</span><span class="code-line line-number" line="14">set(SDL2_IMAGE_INCLUDE_DIR "C:\\vclib\\SDL2_image-2.8.2\\include")
-</span><span class="code-line line-number" line="15">
-</span><span class="code-line line-number" line="16"># Set the library path for the SDL2_image.lib file
-</span><span class="code-line line-number" line="17">set(SDL2_IMAGE_LIB "C:\\vclib\\SDL2_image-2.8.2\\lib\\x64\\SDL2_image.lib")
+</span><span class="code-line line-number" line="4">
+</span><span class="code-line line-number" line="5"># Set the C++ Standard to compile against
+</span><span class="code-line line-number" line="6">set(CMAKE_CXX_STANDARD 11)
+</span><span class="code-line line-number" line="7">set(CMAKE_CXX_STANDARD_REQUIRED ON)
+</span><span class="code-line line-number" line="8">
+</span><span class="code-line line-number" line="9"># Set C++ Flags
+</span><span class="code-line line-number" line="10">set(OPTIMIZE_FLAG "-O2")
+</span><span class="code-line line-number" line="11">set(WARNING_FLAGS "-Werror -Wpedantic -Wall -Wextra -Wno-zero-as-null-pointer-constant -Wno-unsafe-buffer-usage")
+</span><span class="code-line line-number" line="12">set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OPTIMIZE_FLAG} ${WARNING_FLAGS}")
+</span><span class="code-line line-number" line="13">
+</span><span class="code-line line-number" line="14"># Set Directories for SDL2
+</span><span class="code-line line-number" line="15">set(SDL2_DIR "C:\\vclib\\SDL2-2.30.5\\cmake")
+</span><span class="code-line line-number" line="16">set(SDL2_INCLUDE_DIRS "C:\\vclib\\SDL2-2.30.5\\include")
+</span><span class="code-line line-number" line="17">set(SDL2_LIB_DIR "C:\\vclib\\SDL2-2.30.5\\lib\\x64")
 </span><span class="code-line line-number" line="18">
-</span><span class="code-line line-number" line="19"># Set Directories for SDL2_mixer
-</span><span class="code-line line-number" line="20">set(SDL2_mixer_DIR "C:\\vclib\\SDL2_mixer-2.8.0\\cmake")
-</span><span class="code-line line-number" line="21">set(SDL2_MIXER_INCLUDE_DIR "C:\\vclib\\SDL2_mixer-2.8.0\\include")
+</span><span class="code-line line-number" line="19"># Set Directories for SDL2_image
+</span><span class="code-line line-number" line="20">set(SDL2_image_DIR "C:\\vclib\\SDL2_image-2.8.2\\cmake")
+</span><span class="code-line line-number" line="21">set(SDL2_IMAGE_INCLUDE_DIR "C:\\vclib\\SDL2_image-2.8.2\\include")
 </span><span class="code-line line-number" line="22">
-</span><span class="code-line line-number" line="23"># Set the library path for the SDL2_mixer.lib file
-</span><span class="code-line line-number" line="24">set(SDL2_MIXER_LIB "C:\\vclib\\SDL2_mixer-2.8.0\\lib\\x64\\SDL2_mixer.lib")
+</span><span class="code-line line-number" line="23"># Set the library path for the SDL2_image.lib file
+</span><span class="code-line line-number" line="24">set(SDL2_IMAGE_LIB "C:\\vclib\\SDL2_image-2.8.2\\lib\\x64\\SDL2_image.lib")
 </span><span class="code-line line-number" line="25">
-</span><span class="code-line line-number" line="26">find_package(SDL2 REQUIRED)
-</span><span class="code-line line-number" line="27">find_package(SDL2_image REQUIRED)
-</span><span class="code-line line-number" line="28">find_package(SDL2_mixer REQUIRED)
-</span><span class="code-line line-number" line="29">include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
-</span><span class="code-line line-number" line="30">
-</span><span class="code-line line-number" line="31">file(COPY src/assets DESTINATION ${CMAKE_BINARY_DIR})
+</span><span class="code-line line-number" line="26"># Set Directories for SDL2_mixer
+</span><span class="code-line line-number" line="27">set(SDL2_mixer_DIR "C:\\vclib\\SDL2_mixer-2.8.0\\cmake")
+</span><span class="code-line line-number" line="28">set(SDL2_MIXER_INCLUDE_DIR "C:\\vclib\\SDL2_mixer-2.8.0\\include")
+</span><span class="code-line line-number" line="29">
+</span><span class="code-line line-number" line="30"># Set the library path for the SDL2_mixer.lib file
+</span><span class="code-line line-number" line="31">set(SDL2_MIXER_LIB "C:\\vclib\\SDL2_mixer-2.8.0\\lib\\x64\\SDL2_mixer.lib")
 </span><span class="code-line line-number" line="32">
-</span><span class="code-line line-number" line="33">add_executable(SDLSetup src/main.cpp)
-</span><span class="code-line line-number" line="34">target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIB} ${SDL2_MIXER_LIB})
-</span></code><div onclick="copied(this)" data-code="cmake_minimum_required(VERSION 3.24)
+</span><span class="code-line line-number" line="33">find_package(SDL2 REQUIRED)
+</span><span class="code-line line-number" line="34">find_package(SDL2_image REQUIRED)
+</span><span class="code-line line-number" line="35">find_package(SDL2_mixer REQUIRED)
+</span><span class="code-line line-number" line="36">include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_MIXER_INCLUDE_DIR})
+</span><span class="code-line line-number" line="37">
+</span><span class="code-line line-number" line="38">file(COPY src/assets DESTINATION ${CMAKE_BINARY_DIR})
+</span><span class="code-line line-number" line="39">
+</span><span class="code-line line-number" line="40">add_executable(SDLSetup src/main.cpp)
+</span><span class="code-line line-number" line="41">target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIB} ${SDL2_MIXER_LIB})
+</span></code><div onclick="copied(this)" data-code="cmake_minimum_required(VERSION 3.30)
 # Set the project Name
 project(SDLSetup)
+
 # Set the C++ Standard to compile against
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Set C++ Flags
+set(OPTIMIZE_FLAG &#x22;-O2&#x22;)
+set(WARNING_FLAGS &#x22;-Werror -Wpedantic -Wall -Wextra -Wno-zero-as-null-pointer-constant -Wno-unsafe-buffer-usage&#x22;)
+set(CMAKE_CXX_FLAGS &#x22;${CMAKE_CXX_FLAGS} ${OPTIMIZE_FLAG} ${WARNING_FLAGS}&#x22;)
 
 # Set Directories for SDL2
 set(SDL2_DIR &#x22;C:\\vclib\\SDL2-2.30.5\\cmake&#x22;)

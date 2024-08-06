@@ -1,8 +1,15 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.30)
 # Set the project Name
 project(SDLSetup)
+
 # Set the C++ Standard to compile against
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Set C++ Flags
+set(OPTIMIZE_FLAG "-O2")
+set(WARNING_FLAGS "-Werror -Wpedantic -Wall -Wextra -Wno-zero-as-null-pointer-constant -Wno-unsafe-buffer-usage")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OPTIMIZE_FLAG} ${WARNING_FLAGS}")
 
 # Set Directories for SDL2
 set(SDL2_DIR "C:\\vclib\\SDL2-2.30.5\\cmake")

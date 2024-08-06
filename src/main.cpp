@@ -4,13 +4,11 @@
 /* Standard Libraries */
 #include <iostream>
 #include <string>
-#include <windows.h>
 
 /* Third Party Liberies */
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -18,7 +16,7 @@ const int FPS = 60;
 
 const int music_volume = 12;
 const int chunksize = MIX_MAX_VOLUME;
-const char* music_path = "assets/sample_music.mp3";
+static const char* music_path = "assets/sample_music.mp3";
 
 const int width = 25;
 const int height = 25;
@@ -26,22 +24,22 @@ const int speed = 2;
 
 void player_boundaries(SDL_Rect& dstrect);
 
-int main(int argc, char* args[])
+#undef main
+
+int main()
 {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::string err_msg = "SDL could not initialize. SDL_Error: " + (std::string)SDL_GetError() + "\n";
+        std::string err_msg = "SDL could not initialize. SDL_Error: " + static_cast<std::string>(SDL_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
     SDL_Window* window = SDL_CreateWindow("SDL2 Windows Setup", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     if (window == NULL) {
-        std::string err_msg = "Window could not be created. SDL_Error: " + (std::string)SDL_GetError() + "\n";
+        std::string err_msg = "Window could not be created. SDL_Error: " + static_cast<std::string>(SDL_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
@@ -49,17 +47,15 @@ int main(int argc, char* args[])
 
     // Initialize loading audio files
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, chunksize) < 0) {
-        std::string err_msg = "SDL_mixer could not initialize. SDL_Error: " + (std::string)Mix_GetError() + "\n";
+        std::string err_msg = "SDL_mixer could not initialize. SDL_Error: " + static_cast<std::string>(Mix_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
     // Initialize loading PNG files 
     if (IMG_Init(IMG_INIT_PNG) < 0) {
-        std::string err_msg = "SDL_image could not initialize. SDL_Error: " + (std::string)IMG_GetError() + "\n";
+        std::string err_msg = "SDL_image could not initialize. SDL_Error: " + static_cast<std::string>(IMG_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
@@ -67,27 +63,24 @@ int main(int argc, char* args[])
     Mix_VolumeMusic(music_volume);
 
     if (Mix_PlayMusic(music, -1) < 0) {
-        std::string err_msg = "Could not play music. SDL_Error: " + (std::string)Mix_GetError() + "\n";
+        std::string err_msg = "Could not play music. SDL_Error: " + static_cast<std::string>(Mix_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
     SDL_Surface* playerSurface = IMG_Load("assets/player.png");
 
     if (playerSurface == NULL) {
-        std::string err_msg = "Could load surface of player bmp file. SDL_Error: " + (std::string)SDL_GetError() + "\n";
+        std::string err_msg = "Could load surface of player bmp file. SDL_Error: " + static_cast<std::string>(SDL_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
     SDL_Texture* playerTexture = SDL_CreateTextureFromSurface(rend, playerSurface);
 
     if (playerTexture == NULL) {
-        std::string err_msg = "Could load texture of player surface. SDL_Error: " + (std::string)SDL_GetError() + "\n";
+        std::string err_msg = "Could load texture of player surface. SDL_Error: " + static_cast<std::string>(SDL_GetError()) + "\n";
         std::cout << err_msg << std::endl;
-        OutputDebugStringA(err_msg.c_str());
         return EXIT_FAILURE;
     }
 
